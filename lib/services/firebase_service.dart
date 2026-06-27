@@ -79,29 +79,37 @@ class FirebaseService {
   static Future<void> toggleVocabLearned(String category, String word, bool isLearned) async {
     if (currentUser == null) return;
     
-    final docRef = _firestore.collection('users').doc(currentUser!.uid).collection('vocab_progress').doc(category);
-    
-    if (isLearned) {
-      await docRef.set({
-        'learnedWords': FieldValue.arrayUnion([word])
-      }, SetOptions(merge: true));
-    } else {
-      await docRef.set({
-        'learnedWords': FieldValue.arrayRemove([word])
-      }, SetOptions(merge: true));
+    try {
+      final docRef = _firestore.collection('users').doc(currentUser!.uid).collection('vocab_progress').doc(category);
+      
+      if (isLearned) {
+        await docRef.set({
+          'learnedWords': FieldValue.arrayUnion([word])
+        }, SetOptions(merge: true));
+      } else {
+        await docRef.set({
+          'learnedWords': FieldValue.arrayRemove([word])
+        }, SetOptions(merge: true));
+      }
+    } catch (e) {
+      print("Error toggling vocab learned: $e");
     }
   }
 
   static Future<List<String>> getLearnedVocab(String category) async {
     if (currentUser == null) return [];
     
-    final docSnap = await _firestore.collection('users').doc(currentUser!.uid).collection('vocab_progress').doc(category).get();
-    
-    if (docSnap.exists) {
-      final data = docSnap.data();
-      if (data != null && data['learnedWords'] != null) {
-        return List<String>.from(data['learnedWords']);
+    try {
+      final docSnap = await _firestore.collection('users').doc(currentUser!.uid).collection('vocab_progress').doc(category).get();
+      
+      if (docSnap.exists) {
+        final data = docSnap.data();
+        if (data != null && data['learnedWords'] != null) {
+          return List<String>.from(data['learnedWords']);
+        }
       }
+    } catch (e) {
+      print("Error getting learned vocab: $e");
     }
     return [];
   }
@@ -110,17 +118,26 @@ class FirebaseService {
   static Future<void> saveQuizScore(int score) async {
     if (currentUser == null) return;
 
-    final userRef = _firestore.collection('users').doc(currentUser!.uid);
-    
-    await userRef.set({
-      'totalScore': FieldValue.increment(score),
-    }, SetOptions(merge: true));
+    try {
+      final userRef = _firestore.collection('users').doc(currentUser!.uid);
+      
+      await userRef.set({
+        'totalScore': FieldValue.increment(score),
+      }, SetOptions(merge: true));
+    } catch (e) {
+      print("Error saving quiz score: $e");
+    }
   }
 
   // Get Leaderboard
   static Future<List<Map<String, dynamic>>> getLeaderboard() async {
-    final snapshot = await _firestore.collection('users').orderBy('totalScore', descending: true).limit(50).get();
-    
-    return snapshot.docs.map((doc) => doc.data()).toList();
+    try {
+      final snapshot = await _firestore.collection('users').orderBy('totalScore', descending: true).limit(50).get();
+      
+      return snapshot.docs.map((doc) => doc.data()).toList();
+    } catch (e) {
+      print("Error getting leaderboard: $e");
+      return [];
+    }
   }
 }

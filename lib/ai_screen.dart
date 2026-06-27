@@ -564,11 +564,17 @@ class _AiQuizTabState extends State<_AiQuizTab> {
         _answered = false;
       });
     } else {
-      // Save score to Firebase
+      // Save score to Firebase, but don't block the UI if it fails
       if (_score > 0) {
-        await FirebaseService.saveQuizScore(_score);
+        try {
+          await FirebaseService.saveQuizScore(_score);
+        } catch (e) {
+          print("Failed to save score to Firebase: $e");
+        }
       }
-      setState(() => _quizState = QuizState.finished);
+      if (mounted) {
+        setState(() => _quizState = QuizState.finished);
+      }
     }
   }
 
