@@ -204,32 +204,29 @@ class _ConversationTabState extends State<_ConversationTab> {
 
       // Parse SSE stream
       final buffer = StringBuffer();
-      await for (final chunk in response.stream.transform(utf8.decoder)) {
-        final lines = chunk.split('\n');
-        for (final line in lines) {
-          if (line.startsWith('data: ')) {
-            final data = line.substring(6).trim();
-            if (data == '[DONE]') continue;
-            try {
-              final json = jsonDecode(data);
-              final content = json['choices']?[0]?['delta']?['content'] ?? '';
-              if (content.isNotEmpty) {
-                buffer.write(content);
-                setState(() {
-                  final idx = _messages.indexOf(aiMessage);
-                  if (idx != -1) {
-                    _messages[idx] = _ChatMessage(
-                      text: buffer.toString(),
-                      isUser: false,
-                      time: aiMessage.time,
-                    );
-                  }
-                });
-                _scrollToBottom();
-              }
-            } catch (_) {
-              // Skip malformed JSON chunks
+      await for (final line in response.stream.transform(utf8.decoder).transform(const LineSplitter())) {
+        if (line.startsWith('data: ')) {
+          final data = line.substring(6).trim();
+          if (data == '[DONE]') continue;
+          try {
+            final json = jsonDecode(data);
+            final content = json['choices']?[0]?['delta']?['content'] ?? '';
+            if (content.isNotEmpty) {
+              buffer.write(content);
+              setState(() {
+                final idx = _messages.indexOf(aiMessage);
+                if (idx != -1) {
+                  _messages[idx] = _ChatMessage(
+                    text: buffer.toString(),
+                    isUser: false,
+                    time: aiMessage.time,
+                  );
+                }
+              });
+              _scrollToBottom();
             }
+          } catch (_) {
+            // Skip malformed JSON chunks
           }
         }
       }
