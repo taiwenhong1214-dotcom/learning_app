@@ -22,27 +22,48 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   void _submitEmailAuth() async {
-    final email = _emailController.text.trim();
+    final username = _emailController.text.trim();
     final password = _passwordController.text.trim();
 
-    if (email.isEmpty || password.isEmpty) {
+    if (username.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter both email and password.')),
+        const SnackBar(content: Text('Please enter both username and password.')),
       );
       return;
     }
 
+    if (!_isLogin && password.length < 6) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Password must be at least 6 characters long.')),
+      );
+      return;
+    }
+
+    if (!_isLogin && username.length < 3) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Username must be at least 3 characters long.')),
+      );
+      return;
+    }
+
+    // Firebase requires an email format, so we create a hidden dummy email using their username
+    final fakeEmail = '$username@learnbmapp.local';
+
     setState(() => _isLoading = true);
 
     final user = _isLogin 
-        ? await FirebaseService.signInWithEmail(email, password)
-        : await FirebaseService.signUpWithEmail(email, password);
+        ? await FirebaseService.signInWithEmail(fakeEmail, password)
+        : await FirebaseService.signUpWithEmail(fakeEmail, password);
 
     if (mounted) {
       setState(() => _isLoading = false);
       if (user == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(_isLogin ? 'Login failed. Check your credentials.' : 'Sign up failed.')),
+          SnackBar(
+            content: Text(_isLogin 
+                ? 'Login failed. Incorrect username or password.' 
+                : 'Sign up failed. Username might already be taken.'),
+          ),
         );
       }
     }
@@ -146,12 +167,12 @@ class _AuthScreenState extends State<AuthScreen> {
                     // Email/Password Form
                     TextField(
                       controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.text,
                       style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        hintText: 'Email',
+                        hintText: 'Username',
                         hintStyle: const TextStyle(color: Color(0xFF8B949E)),
-                        prefixIcon: const Icon(Icons.email_rounded, color: Color(0xFF8B949E)),
+                        prefixIcon: const Icon(Icons.person_rounded, color: Color(0xFF8B949E)),
                         filled: true,
                         fillColor: const Color(0xFF1C2333),
                         border: OutlineInputBorder(
