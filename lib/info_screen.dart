@@ -155,9 +155,11 @@ class _InfoScreenState extends State<InfoScreen> {
 
   Future<void> _loadPreferences() async {
     final prefs = await SharedPreferences.getInstance();
+    final uid = FirebaseService.currentUser?.uid ?? 'guest';
+    
     setState(() {
-      _favourites = (prefs.getStringList('favourites') ?? []).toSet();
-      _learned = (prefs.getStringList('learned') ?? []).toSet();
+      _favourites = (prefs.getStringList('favourites_$uid') ?? []).toSet();
+      _learned = (prefs.getStringList('learned_$uid') ?? []).toSet();
     });
     
     // Also sync from Firestore if logged in
@@ -178,12 +180,14 @@ class _InfoScreenState extends State<InfoScreen> {
 
   Future<void> _saveFavourites() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList('favourites', _favourites.toList());
+    final uid = FirebaseService.currentUser?.uid ?? 'guest';
+    await prefs.setStringList('favourites_$uid', _favourites.toList());
   }
 
   Future<void> _saveLearned() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList('learned', _learned.toList());
+    final uid = FirebaseService.currentUser?.uid ?? 'guest';
+    await prefs.setStringList('learned_$uid', _learned.toList());
   }
 
   void _toggleFavourite(String bmWord) {

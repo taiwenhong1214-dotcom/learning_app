@@ -22,7 +22,35 @@ class HomeScreen extends StatelessWidget {
             icon: const Icon(Icons.logout_rounded),
             tooltip: 'Logout',
             onPressed: () async {
-              await FirebaseService.signOut();
+              final confirm = await showDialog<bool>(
+                context: context,
+                builder: (context) => AlertDialog(
+                  backgroundColor: const Color(0xFF1C2333),
+                  title: const Text('Logout', style: TextStyle(color: Colors.white)),
+                  content: const Text(
+                    'Are you sure you want to log out?',
+                    style: TextStyle(color: Color(0xFFE6EDF3)),
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, false),
+                      child: const Text('Cancel', style: TextStyle(color: Color(0xFF8B949E))),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red.shade600,
+                        foregroundColor: Colors.white,
+                      ),
+                      onPressed: () => Navigator.pop(context, true),
+                      child: const Text('Logout'),
+                    ),
+                  ],
+                ),
+              );
+
+              if (confirm == true) {
+                await FirebaseService.signOut();
+              }
             },
           ),
         ],
