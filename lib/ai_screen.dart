@@ -468,9 +468,9 @@ class _AiQuizTabState extends State<_AiQuizTab> {
   bool _answered = false;
 
   static const List<String> _models = [
-    'qwen/qwen3-coder:free',
     'nvidia/nemotron-3-ultra-550b-a55b:free',
     'openai/gpt-oss-120b:free',
+    'deepseek/deepseek-v4-flash',
   ];
 
   Future<void> _generateQuiz() async {
