@@ -224,12 +224,12 @@ class _ConversationTabState extends State<_ConversationTab> {
             
             if (buffer.isNotEmpty) {
               setState(() {
-                final idx = _messages.indexOf(aiMessage);
-                if (idx != -1) {
-                  _messages[idx] = _ChatMessage(
+                // The AI message is always the last one since the user can't send messages while streaming
+                if (_messages.isNotEmpty && !_messages.last.isUser) {
+                  _messages[_messages.length - 1] = _ChatMessage(
                     text: buffer.toString(),
                     isUser: false,
-                    time: aiMessage.time,
+                    time: _messages.last.time,
                   );
                 }
               });
