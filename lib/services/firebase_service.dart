@@ -41,6 +41,49 @@ class FirebaseService {
     }
   }
 
+  // Email & Password Sign Up
+  static Future<UserCredential?> signUpWithEmail(String email, String password) async {
+    try {
+      final userCredential = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      
+      if (userCredential.user != null) {
+        await _firestore.collection('users').doc(userCredential.user!.uid).set({
+          'displayName': email.split('@')[0],
+          'photoURL': '',
+          'email': email,
+          'lastActive': FieldValue.serverTimestamp(),
+        }, SetOptions(merge: true));
+      }
+      return userCredential;
+    } catch (e) {
+      print("Error signing up with email: $e");
+      return null;
+    }
+  }
+
+  // Email & Password Sign In
+  static Future<UserCredential?> signInWithEmail(String email, String password) async {
+    try {
+      final userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      
+      if (userCredential.user != null) {
+         await _firestore.collection('users').doc(userCredential.user!.uid).set({
+          'lastActive': FieldValue.serverTimestamp(),
+        }, SetOptions(merge: true));
+      }
+      return userCredential;
+    } catch (e) {
+      print("Error signing in with email: $e");
+      return null;
+    }
+  }
+
   // Anonymous Sign In (Guest)
   static Future<UserCredential?> signInAnonymously() async {
     try {

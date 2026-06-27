@@ -10,6 +10,43 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   bool _isLoading = false;
+  bool _isLogin = true; // Toggle between Login and Sign Up
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _submitEmailAuth() async {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter both email and password.')),
+      );
+      return;
+    }
+
+    setState(() => _isLoading = true);
+
+    final user = _isLogin 
+        ? await FirebaseService.signInWithEmail(email, password)
+        : await FirebaseService.signUpWithEmail(email, password);
+
+    if (mounted) {
+      setState(() => _isLoading = false);
+      if (user == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(_isLogin ? 'Login failed. Check your credentials.' : 'Sign up failed.')),
+        );
+      }
+    }
+  }
 
   void _signInWithGoogle() async {
     setState(() => _isLoading = true);
@@ -106,6 +143,86 @@ class _AuthScreenState extends State<AuthScreen> {
                       child: CircularProgressIndicator(color: Color(0xFFFFD54F)),
                     )
                   else ...[
+                    // Email/Password Form
+                    TextField(
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        hintText: 'Email',
+                        hintStyle: const TextStyle(color: Color(0xFF8B949E)),
+                        prefixIcon: const Icon(Icons.email_rounded, color: Color(0xFF8B949E)),
+                        filled: true,
+                        fillColor: const Color(0xFF1C2333),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    TextField(
+                      controller: _passwordController,
+                      obscureText: true,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        hintText: 'Password',
+                        hintStyle: const TextStyle(color: Color(0xFF8B949E)),
+                        prefixIcon: const Icon(Icons.lock_rounded, color: Color(0xFF8B949E)),
+                        filled: true,
+                        fillColor: const Color(0xFF1C2333),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    ElevatedButton(
+                      onPressed: _submitEmailAuth,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF5C6BC0),
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 4,
+                      ),
+                      child: Text(
+                        _isLogin ? 'Log In' : 'Sign Up',
+                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _isLogin = !_isLogin;
+                        });
+                      },
+                      child: Text(
+                        _isLogin 
+                            ? "Don't have an account? Sign Up" 
+                            : "Already have an account? Log In",
+                        style: const TextStyle(color: Color(0xFFFFD54F)),
+                      ),
+                    ),
+                    
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: Row(
+                        children: [
+                          Expanded(child: Divider(color: Color(0xFF30363D))),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            child: Text('OR', style: TextStyle(color: Color(0xFF8B949E))),
+                          ),
+                          Expanded(child: Divider(color: Color(0xFF30363D))),
+                        ],
+                      ),
+                    ),
+
                     ElevatedButton(
                       onPressed: _signInWithGoogle,
                       style: ElevatedButton.styleFrom(
@@ -117,13 +234,12 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                         elevation: 4,
                       ),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // Using a simple flutter icon for Google since we don't have the asset
-                          const Icon(Icons.g_mobiledata_rounded, size: 32, color: Colors.blue),
-                          const SizedBox(width: 8),
-                          const Text(
+                          Icon(Icons.g_mobiledata_rounded, size: 32, color: Colors.blue),
+                          SizedBox(width: 8),
+                          Text(
                             'Continue with Google',
                             style: TextStyle(
                               fontSize: 16,
@@ -133,7 +249,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 16),
                     OutlinedButton(
                       onPressed: _signInAsGuest,
                       style: OutlinedButton.styleFrom(
