@@ -114,30 +114,4 @@ class FirebaseService {
     return [];
   }
 
-  // Quiz Score tracking
-  static Future<void> saveQuizScore(int score) async {
-    if (currentUser == null) return;
-
-    try {
-      final userRef = _firestore.collection('users').doc(currentUser!.uid);
-      
-      await userRef.set({
-        'totalScore': FieldValue.increment(score),
-      }, SetOptions(merge: true));
-    } catch (e) {
-      print("Error saving quiz score: $e");
-    }
-  }
-
-  // Get Leaderboard
-  static Future<List<Map<String, dynamic>>> getLeaderboard() async {
-    try {
-      final snapshot = await _firestore.collection('users').orderBy('totalScore', descending: true).limit(50).get();
-      
-      return snapshot.docs.map((doc) => doc.data()).toList();
-    } catch (e) {
-      print("Error getting leaderboard: $e");
-      return [];
-    }
-  }
 }

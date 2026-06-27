@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'services/firebase_service.dart';
-import 'leaderboard_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -11,13 +10,6 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home'),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.leaderboard_rounded),
-            tooltip: 'Leaderboard',
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const LeaderboardScreen()));
-            },
-          ),
           IconButton(
             icon: const Icon(Icons.logout_rounded),
             tooltip: 'Logout',
