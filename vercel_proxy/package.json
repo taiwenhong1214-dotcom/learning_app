@@ -1,0 +1,8 @@
+{
+  "name": "bm-learning-app-proxy",
+  "version": "1.0.0",
+  "description": "Vercel proxy for OpenRouter API",
+  "scripts": {
+    "start": "vercel dev"
+  }
+}
