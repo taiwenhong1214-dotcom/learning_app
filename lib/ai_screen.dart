@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'services/firebase_service.dart';
 
 // ─────────────────────────────────────────────────────
 //  AI Screen — Tab 1: Conversation · Tab 2: Quiz
@@ -555,7 +556,7 @@ class _AiQuizTabState extends State<_AiQuizTab> {
     });
   }
 
-  void _nextQuestion() {
+  void _nextQuestion() async {
     if (_currentQ < _questions.length - 1) {
       setState(() {
         _currentQ++;
@@ -563,6 +564,10 @@ class _AiQuizTabState extends State<_AiQuizTab> {
         _answered = false;
       });
     } else {
+      // Save score to Firebase
+      if (_score > 0) {
+        await FirebaseService.saveQuizScore(_score);
+      }
       setState(() => _quizState = QuizState.finished);
     }
   }

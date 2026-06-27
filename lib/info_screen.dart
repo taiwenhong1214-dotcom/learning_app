@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'services/firebase_service.dart';
 
 // ─────────────────────────────────────────────────────
 //  Learn Screen — Vocab categories, cards, TTS, search
@@ -158,6 +159,21 @@ class _InfoScreenState extends State<InfoScreen> {
       _favourites = (prefs.getStringList('favourites') ?? []).toSet();
       _learned = (prefs.getStringList('learned') ?? []).toSet();
     });
+    
+    // Also sync from Firestore if logged in
+    if (FirebaseService.currentUser != null) {
+      Set<String> firestoreLearned = {};
+      for (final cat in allCategories) {
+        final words = await FirebaseService.getLearnedVocab(cat.name);
+        firestoreLearned.addAll(words);
+      }
+      if (firestoreLearned.isNotEmpty) {
+        setState(() {
+          _learned.addAll(firestoreLearned);
+        });
+        _saveLearned(); // Save back to local prefs
+      }
+    }
   }
 
   Future<void> _saveFavourites() async {
@@ -182,11 +198,22 @@ class _InfoScreenState extends State<InfoScreen> {
   }
 
   void _toggleLearned(String bmWord) {
+    // Find the category of this word to save to Firestore
+    String categoryName = 'Unknown';
+    for (final cat in allCategories) {
+      if (cat.items.any((item) => item.bmWord == bmWord)) {
+        categoryName = cat.name;
+        break;
+      }
+    }
+
     setState(() {
       if (_learned.contains(bmWord)) {
         _learned.remove(bmWord);
+        FirebaseService.toggleVocabLearned(categoryName, bmWord, false);
       } else {
         _learned.add(bmWord);
+        FirebaseService.toggleVocabLearned(categoryName, bmWord, true);
       }
     });
     _saveLearned();

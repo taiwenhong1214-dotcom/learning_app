@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "237387824540",
+    "project_id": "learning-app-f7fcd",
+    "storage_bucket": "learning-app-f7fcd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237387824540:android:9f954b7fc4822ac8a61c59",
+        "android_client_info": {
+          "package_name": "com.example.app_development_final_assessment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "237387824540-d915g68cp3n5u6ssub1ssaelu17jaqua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbVm7Ph2lIh-5CaaukGgeXCa6Q8udpw1w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "237387824540-d915g68cp3n5u6ssub1ssaelu17jaqua.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
