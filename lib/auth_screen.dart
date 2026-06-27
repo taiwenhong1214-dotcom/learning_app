@@ -137,7 +137,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       color: Colors.white,
                     ),
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 20),
                   const Text(
                     'Learn BM',
                     textAlign: TextAlign.center,
@@ -157,7 +157,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       color: Color(0xFF8B949E),
                     ),
                   ),
-                  const SizedBox(height: 60),
+                  const SizedBox(height: 30),
 
                   if (_isLoading)
                     const Center(
@@ -231,7 +231,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                     
                     const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16),
+                      padding: EdgeInsets.symmetric(vertical: 8),
                       child: Row(
                         children: [
                           Expanded(child: Divider(color: Color(0xFF30363D))),
