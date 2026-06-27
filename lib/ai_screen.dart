@@ -83,9 +83,9 @@ class _ConversationTabState extends State<_ConversationTab> {
 
   // Models to try in order (fallback chain)
   static const List<String> _models = [
-    'qwen/qwen3-coder:free',
     'nvidia/nemotron-3-ultra-550b-a55b:free',
     'openai/gpt-oss-120b:free',
+    'deepseek/deepseek-v4-flash',
   ];
 
   static const String _systemPrompt =
@@ -210,9 +210,19 @@ class _ConversationTabState extends State<_ConversationTab> {
           if (data == '[DONE]') continue;
           try {
             final json = jsonDecode(data);
-            final content = json['choices']?[0]?['delta']?['content'] ?? '';
-            if (content.isNotEmpty) {
-              buffer.write(content);
+            
+            // Check for OpenRouter API error mid-stream
+            if (json.containsKey('error')) {
+              final errMsg = json['error']?['message'] ?? 'Unknown Error';
+              buffer.write('\n\n[API Error: $errMsg]');
+            } else {
+              final content = json['choices']?[0]?['delta']?['content'] ?? '';
+              if (content.isNotEmpty) {
+                buffer.write(content);
+              }
+            }
+            
+            if (buffer.isNotEmpty) {
               setState(() {
                 final idx = _messages.indexOf(aiMessage);
                 if (idx != -1) {
