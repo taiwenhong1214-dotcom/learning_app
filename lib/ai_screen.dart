@@ -181,7 +181,7 @@ class _ConversationTabState extends State<_ConversationTab> {
 
     final request = http.Request(
       'POST',
-      Uri.parse('https://learning-app-ten-mu.vercel.app/api/chat'),
+      Uri.parse('https://bm-learning-app.vercel.app/api/chat'),
     );
     request.headers.addAll({
       'Content-Type': 'application/json',
@@ -487,7 +487,7 @@ class _AiQuizTabState extends State<_AiQuizTab> {
 
     try {
       final response = await http.post(
-        Uri.parse('https://learning-app-ten-mu.vercel.app/api/chat'),
+        Uri.parse('https://bm-learning-app.vercel.app/api/chat'),
         headers: {
           'Content-Type': 'application/json',
         },
