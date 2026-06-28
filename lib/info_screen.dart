@@ -28,12 +28,16 @@ class VocabItem {
 // Data model for a category
 class VocabCategory {
   final String name;
+  final String engName;
+  final String emoji;
   final IconData icon;
   final Color color;
   final List<VocabItem> items;
 
   const VocabCategory({
     required this.name,
+    required this.engName,
+    required this.emoji,
     required this.icon,
     required this.color,
     required this.items,
@@ -45,88 +49,117 @@ class VocabCategory {
 // ─────────────────────────────────────────────────────
 final List<VocabCategory> allCategories = [
   VocabCategory(
-    name: 'Greetings',
-    icon: Icons.waving_hand_rounded,
-    color: const Color(0xFFFF7043),
-    items: const [
-      VocabItem(bmWord: 'Selamat pagi', engMeaning: 'Good morning', exampleSentence: 'Selamat pagi, cikgu!', engExample: 'Good morning, teacher!', category: 'Greetings'),
-      VocabItem(bmWord: 'Selamat petang', engMeaning: 'Good afternoon', exampleSentence: 'Selamat petang, kawan-kawan.', engExample: 'Good afternoon, friends.', category: 'Greetings'),
-      VocabItem(bmWord: 'Selamat malam', engMeaning: 'Good night', exampleSentence: 'Selamat malam, tidur nyenyak.', engExample: 'Good night, sleep tight.', category: 'Greetings'),
-      VocabItem(bmWord: 'Apa khabar', engMeaning: 'How are you', exampleSentence: 'Apa khabar? Sihat?', engExample: 'How are you? Healthy?', category: 'Greetings'),
-      VocabItem(bmWord: 'Baik', engMeaning: 'Fine', exampleSentence: 'Saya baik, terima kasih.', engExample: 'I am fine, thank you.', category: 'Greetings'),
-      VocabItem(bmWord: 'Terima kasih', engMeaning: 'Thank you', exampleSentence: 'Terima kasih atas bantuan anda.', engExample: 'Thank you for your help.', category: 'Greetings'),
-      VocabItem(bmWord: 'Sama-sama', engMeaning: "You're welcome", exampleSentence: 'Sama-sama, tiada masalah.', engExample: 'You are welcome, no problem.', category: 'Greetings'),
-      VocabItem(bmWord: 'Maaf', engMeaning: 'Sorry', exampleSentence: 'Maaf, saya terlambat.', engExample: 'Sorry, I am late.', category: 'Greetings'),
-      VocabItem(bmWord: 'Tolong', engMeaning: 'Please/Help', exampleSentence: 'Tolong bantu saya.', engExample: 'Please help me.', category: 'Greetings'),
-      VocabItem(bmWord: 'Selamat tinggal', engMeaning: 'Goodbye', exampleSentence: 'Selamat tinggal, jumpa lagi!', engExample: 'Goodbye, see you again!', category: 'Greetings'),
-    ],
-  ),
-  VocabCategory(
-    name: 'Numbers',
-    icon: Icons.pin_rounded,
-    color: const Color(0xFF42A5F5),
-    items: const [
-      VocabItem(bmWord: 'Satu', engMeaning: 'One', exampleSentence: 'Saya ada satu epal.', engExample: 'I have one apple.', category: 'Numbers'),
-      VocabItem(bmWord: 'Dua', engMeaning: 'Two', exampleSentence: 'Dia ada dua kucing.', engExample: 'He/She has two cats.', category: 'Numbers'),
-      VocabItem(bmWord: 'Tiga', engMeaning: 'Three', exampleSentence: 'Ada tiga buku di atas meja.', engExample: 'There are three books on the table.', category: 'Numbers'),
-      VocabItem(bmWord: 'Empat', engMeaning: 'Four', exampleSentence: 'Rumah itu ada empat bilik.', engExample: 'That house has four rooms.', category: 'Numbers'),
-      VocabItem(bmWord: 'Lima', engMeaning: 'Five', exampleSentence: 'Saya belajar lima perkataan baru.', engExample: 'I learned five new words.', category: 'Numbers'),
-      VocabItem(bmWord: 'Enam', engMeaning: 'Six', exampleSentence: 'Kelas bermula pukul enam pagi.', engExample: 'Class starts at six in the morning.', category: 'Numbers'),
-      VocabItem(bmWord: 'Tujuh', engMeaning: 'Seven', exampleSentence: 'Satu minggu ada tujuh hari.', engExample: 'One week has seven days.', category: 'Numbers'),
-      VocabItem(bmWord: 'Lapan', engMeaning: 'Eight', exampleSentence: 'Sotong ada lapan kaki.', engExample: 'An octopus has eight legs.', category: 'Numbers'),
-      VocabItem(bmWord: 'Sembilan', engMeaning: 'Nine', exampleSentence: 'Dia berumur sembilan tahun.', engExample: 'He/She is nine years old.', category: 'Numbers'),
-      VocabItem(bmWord: 'Sepuluh', engMeaning: 'Ten', exampleSentence: 'Saya dapat sepuluh markah penuh.', engExample: 'I got ten full marks.', category: 'Numbers'),
-    ],
-  ),
-  VocabCategory(
-    name: 'Colours',
-    icon: Icons.palette_rounded,
-    color: const Color(0xFFAB47BC),
-    items: const [
-      VocabItem(bmWord: 'Merah', engMeaning: 'Red', exampleSentence: 'Bunga itu berwarna merah.', engExample: 'That flower is red.', category: 'Colours'),
-      VocabItem(bmWord: 'Biru', engMeaning: 'Blue', exampleSentence: 'Langit berwarna biru.', engExample: 'The sky is blue.', category: 'Colours'),
-      VocabItem(bmWord: 'Hijau', engMeaning: 'Green', exampleSentence: 'Daun pokok berwarna hijau.', engExample: 'The tree leaves are green.', category: 'Colours'),
-      VocabItem(bmWord: 'Kuning', engMeaning: 'Yellow', exampleSentence: 'Pisang masak berwarna kuning.', engExample: 'A ripe banana is yellow.', category: 'Colours'),
-      VocabItem(bmWord: 'Hitam', engMeaning: 'Black', exampleSentence: 'Kucing hitam itu comel.', engExample: 'That black cat is cute.', category: 'Colours'),
-      VocabItem(bmWord: 'Putih', engMeaning: 'White', exampleSentence: 'Awan putih di langit.', engExample: 'White clouds in the sky.', category: 'Colours'),
-      VocabItem(bmWord: 'Oren', engMeaning: 'Orange', exampleSentence: 'Jus oren sangat sedap.', engExample: 'Orange juice is very delicious.', category: 'Colours'),
-      VocabItem(bmWord: 'Ungu', engMeaning: 'Purple', exampleSentence: 'Dia suka warna ungu.', engExample: 'He/She likes the color purple.', category: 'Colours'),
-      VocabItem(bmWord: 'Perang', engMeaning: 'Brown', exampleSentence: 'Kasut itu berwarna perang.', engExample: 'Those shoes are brown.', category: 'Colours'),
-      VocabItem(bmWord: 'Kelabu', engMeaning: 'Grey', exampleSentence: 'Langit kelabu menandakan hujan.', engExample: 'A grey sky indicates rain.', category: 'Colours'),
-    ],
-  ),
-  VocabCategory(
-    name: 'Food',
-    icon: Icons.restaurant_rounded,
-    color: const Color(0xFF66BB6A),
-    items: const [
-      VocabItem(bmWord: 'Nasi', engMeaning: 'Rice', exampleSentence: 'Saya makan nasi setiap hari.', engExample: 'I eat rice every day.', category: 'Food'),
-      VocabItem(bmWord: 'Mee', engMeaning: 'Noodles', exampleSentence: 'Mee goreng ini pedas!', engExample: 'These fried noodles are spicy!', category: 'Food'),
-      VocabItem(bmWord: 'Ayam', engMeaning: 'Chicken', exampleSentence: 'Ayam goreng sangat sedap.', engExample: 'Fried chicken is very delicious.', category: 'Food'),
-      VocabItem(bmWord: 'Ikan', engMeaning: 'Fish', exampleSentence: 'Ikan bakar di tepi pantai.', engExample: 'Grilled fish by the beach.', category: 'Food'),
-      VocabItem(bmWord: 'Sayur', engMeaning: 'Vegetables', exampleSentence: 'Makan sayur untuk kesihatan.', engExample: 'Eat vegetables for health.', category: 'Food'),
-      VocabItem(bmWord: 'Roti', engMeaning: 'Bread', exampleSentence: 'Roti canai untuk sarapan.', engExample: 'Roti canai for breakfast.', category: 'Food'),
-      VocabItem(bmWord: 'Telur', engMeaning: 'Egg', exampleSentence: 'Saya suka telur mata kerbau.', engExample: 'I like sunny-side-up eggs.', category: 'Food'),
-      VocabItem(bmWord: 'Susu', engMeaning: 'Milk', exampleSentence: 'Minum susu sebelum tidur.', engExample: 'Drink milk before sleeping.', category: 'Food'),
-      VocabItem(bmWord: 'Air', engMeaning: 'Water', exampleSentence: 'Minum air yang banyak.', engExample: 'Drink plenty of water.', category: 'Food'),
-      VocabItem(bmWord: 'Buah', engMeaning: 'Fruit', exampleSentence: 'Buah mangga sangat manis.', engExample: 'The mango is very sweet.', category: 'Food'),
-    ],
-  ),
-  VocabCategory(
-    name: 'Family',
+    name: 'Keluarga',
+    emoji: '👨‍👩‍👧‍👦',
+    engName: 'Family',
     icon: Icons.family_restroom_rounded,
     color: const Color(0xFFEF5350),
     items: const [
-      VocabItem(bmWord: 'Ibu', engMeaning: 'Mother', exampleSentence: 'Ibu saya pandai masak.', engExample: 'My mother is good at cooking.', category: 'Family'),
-      VocabItem(bmWord: 'Bapa', engMeaning: 'Father', exampleSentence: 'Bapa bekerja di pejabat.', engExample: 'Father works in the office.', category: 'Family'),
-      VocabItem(bmWord: 'Adik', engMeaning: 'Younger sibling', exampleSentence: 'Adik saya berumur lima tahun.', engExample: 'My younger sibling is five years old.', category: 'Family'),
-      VocabItem(bmWord: 'Kakak', engMeaning: 'Older sister', exampleSentence: 'Kakak belajar di universiti.', engExample: 'Older sister studies at the university.', category: 'Family'),
-      VocabItem(bmWord: 'Abang', engMeaning: 'Older brother', exampleSentence: 'Abang pandai bermain gitar.', engExample: 'Older brother is good at playing the guitar.', category: 'Family'),
-      VocabItem(bmWord: 'Datuk', engMeaning: 'Grandfather', exampleSentence: 'Datuk tinggal di kampung.', engExample: 'Grandfather lives in the village.', category: 'Family'),
-      VocabItem(bmWord: 'Nenek', engMeaning: 'Grandmother', exampleSentence: 'Nenek suka berkebun.', engExample: 'Grandmother likes gardening.', category: 'Family'),
-      VocabItem(bmWord: 'Anak', engMeaning: 'Child', exampleSentence: 'Anak itu sedang bermain.', engExample: 'The child is playing.', category: 'Family'),
-      VocabItem(bmWord: 'Suami', engMeaning: 'Husband', exampleSentence: 'Suami dia seorang doktor.', engExample: 'Her husband is a doctor.', category: 'Family'),
-      VocabItem(bmWord: 'Isteri', engMeaning: 'Wife', exampleSentence: 'Isteri dia seorang guru.', engExample: 'His wife is a teacher.', category: 'Family'),
+      VocabItem(bmWord: 'Ibu', engMeaning: 'Mother', exampleSentence: 'Ibu saya pandai masak.', engExample: 'My mother is good at cooking.', category: 'Keluarga'),
+      VocabItem(bmWord: 'Bapa', engMeaning: 'Father', exampleSentence: 'Bapa bekerja di pejabat.', engExample: 'Father works in the office.', category: 'Keluarga'),
+      VocabItem(bmWord: 'Adik', engMeaning: 'Younger sibling', exampleSentence: 'Adik saya berumur lima tahun.', engExample: 'My younger sibling is five years old.', category: 'Keluarga'),
+      VocabItem(bmWord: 'Kakak', engMeaning: 'Older sister', exampleSentence: 'Kakak belajar di universiti.', engExample: 'Older sister studies at the university.', category: 'Keluarga'),
+      VocabItem(bmWord: 'Abang', engMeaning: 'Older brother', exampleSentence: 'Abang pandai bermain gitar.', engExample: 'Older brother is good at playing the guitar.', category: 'Keluarga'),
+      VocabItem(bmWord: 'Datuk', engMeaning: 'Grandfather', exampleSentence: 'Datuk tinggal di kampung.', engExample: 'Grandfather lives in the village.', category: 'Keluarga'),
+      VocabItem(bmWord: 'Nenek', engMeaning: 'Grandmother', exampleSentence: 'Nenek suka berkebun.', engExample: 'Grandmother likes gardening.', category: 'Keluarga'),
+      VocabItem(bmWord: 'Anak', engMeaning: 'Child', exampleSentence: 'Anak itu sedang bermain.', engExample: 'The child is playing.', category: 'Keluarga'),
+      VocabItem(bmWord: 'Suami', engMeaning: 'Husband', exampleSentence: 'Suami dia seorang doktor.', engExample: 'Her husband is a doctor.', category: 'Keluarga'),
+      VocabItem(bmWord: 'Isteri', engMeaning: 'Wife', exampleSentence: 'Isteri dia seorang guru.', engExample: 'His wife is a teacher.', category: 'Keluarga'),
+    ],
+  ),
+  VocabCategory(
+    name: 'Kenderaan',
+    emoji: '🚘',
+    engName: 'Vehicles',
+    icon: Icons.directions_car_rounded,
+    color: const Color(0xFF42A5F5),
+    items: const [
+      VocabItem(bmWord: 'Kereta', engMeaning: 'Car', exampleSentence: 'Dia memandu kereta ke tempat kerja.', engExample: 'He drives a car to work.', category: 'Kenderaan'),
+      VocabItem(bmWord: 'Bas', engMeaning: 'Bus', exampleSentence: 'Kami naik bas ke sekolah.', engExample: 'We take the bus to school.', category: 'Kenderaan'),
+      VocabItem(bmWord: 'Motosikal', engMeaning: 'Motorcycle', exampleSentence: 'Motosikal itu sangat laju.', engExample: 'That motorcycle is very fast.', category: 'Kenderaan'),
+      VocabItem(bmWord: 'Basikal', engMeaning: 'Bicycle', exampleSentence: 'Adik suka menunggang basikal.', engExample: 'Younger sibling likes riding a bicycle.', category: 'Kenderaan'),
+      VocabItem(bmWord: 'Kapal terbang', engMeaning: 'Aeroplane', exampleSentence: 'Kapal terbang itu besar.', engExample: 'That aeroplane is big.', category: 'Kenderaan'),
+      VocabItem(bmWord: 'Lori', engMeaning: 'Lorry/Truck', exampleSentence: 'Lori itu membawa barang.', engExample: 'The lorry is carrying goods.', category: 'Kenderaan'),
+      VocabItem(bmWord: 'Teksi', engMeaning: 'Taxi', exampleSentence: 'Saya memanggil sebuah teksi.', engExample: 'I called a taxi.', category: 'Kenderaan'),
+      VocabItem(bmWord: 'Kereta api', engMeaning: 'Train', exampleSentence: 'Kereta api tiba tepat pada masanya.', engExample: 'The train arrived on time.', category: 'Kenderaan'),
+      VocabItem(bmWord: 'Kapal', engMeaning: 'Ship', exampleSentence: 'Kapal itu belayar di laut.', engExample: 'The ship sails on the sea.', category: 'Kenderaan'),
+      VocabItem(bmWord: 'Perahu', engMeaning: 'Boat', exampleSentence: 'Nelayan menggunakan perahu.', engExample: 'Fishermen use boats.', category: 'Kenderaan'),
+    ],
+  ),
+  VocabCategory(
+    name: 'Nombor',
+    emoji: '🔢',
+    engName: 'Numbers',
+    icon: Icons.pin_rounded,
+    color: const Color(0xFFAB47BC),
+    items: const [
+      VocabItem(bmWord: 'Satu', engMeaning: 'One', exampleSentence: 'Saya ada satu epal.', engExample: 'I have one apple.', category: 'Nombor'),
+      VocabItem(bmWord: 'Dua', engMeaning: 'Two', exampleSentence: 'Dia ada dua kucing.', engExample: 'He/She has two cats.', category: 'Nombor'),
+      VocabItem(bmWord: 'Tiga', engMeaning: 'Three', exampleSentence: 'Ada tiga buku di atas meja.', engExample: 'There are three books on the table.', category: 'Nombor'),
+      VocabItem(bmWord: 'Empat', engMeaning: 'Four', exampleSentence: 'Rumah itu ada empat bilik.', engExample: 'That house has four rooms.', category: 'Nombor'),
+      VocabItem(bmWord: 'Lima', engMeaning: 'Five', exampleSentence: 'Saya belajar lima perkataan baru.', engExample: 'I learned five new words.', category: 'Nombor'),
+      VocabItem(bmWord: 'Enam', engMeaning: 'Six', exampleSentence: 'Kelas bermula pukul enam pagi.', engExample: 'Class starts at six in the morning.', category: 'Nombor'),
+      VocabItem(bmWord: 'Tujuh', engMeaning: 'Seven', exampleSentence: 'Satu minggu ada tujuh hari.', engExample: 'One week has seven days.', category: 'Nombor'),
+      VocabItem(bmWord: 'Lapan', engMeaning: 'Eight', exampleSentence: 'Sotong ada lapan kaki.', engExample: 'An octopus has eight legs.', category: 'Nombor'),
+      VocabItem(bmWord: 'Sembilan', engMeaning: 'Nine', exampleSentence: 'Dia berumur sembilan tahun.', engExample: 'He/She is nine years old.', category: 'Nombor'),
+      VocabItem(bmWord: 'Sepuluh', engMeaning: 'Ten', exampleSentence: 'Saya dapat sepuluh markah penuh.', engExample: 'I got ten full marks.', category: 'Nombor'),
+    ],
+  ),
+  VocabCategory(
+    name: 'Warna',
+    emoji: '🎨',
+    engName: 'Colours',
+    icon: Icons.palette_rounded,
+    color: const Color(0xFFFF7043),
+    items: const [
+      VocabItem(bmWord: 'Merah', engMeaning: 'Red', exampleSentence: 'Bunga itu berwarna merah.', engExample: 'That flower is red.', category: 'Warna'),
+      VocabItem(bmWord: 'Biru', engMeaning: 'Blue', exampleSentence: 'Langit berwarna biru.', engExample: 'The sky is blue.', category: 'Warna'),
+      VocabItem(bmWord: 'Hijau', engMeaning: 'Green', exampleSentence: 'Daun pokok berwarna hijau.', engExample: 'The tree leaves are green.', category: 'Warna'),
+      VocabItem(bmWord: 'Kuning', engMeaning: 'Yellow', exampleSentence: 'Pisang masak berwarna kuning.', engExample: 'A ripe banana is yellow.', category: 'Warna'),
+      VocabItem(bmWord: 'Hitam', engMeaning: 'Black', exampleSentence: 'Kucing hitam itu comel.', engExample: 'That black cat is cute.', category: 'Warna'),
+      VocabItem(bmWord: 'Putih', engMeaning: 'White', exampleSentence: 'Awan putih di langit.', engExample: 'White clouds in the sky.', category: 'Warna'),
+      VocabItem(bmWord: 'Oren', engMeaning: 'Orange', exampleSentence: 'Jus oren sangat sedap.', engExample: 'Orange juice is very delicious.', category: 'Warna'),
+      VocabItem(bmWord: 'Ungu', engMeaning: 'Purple', exampleSentence: 'Dia suka warna ungu.', engExample: 'He/She likes the color purple.', category: 'Warna'),
+      VocabItem(bmWord: 'Perang', engMeaning: 'Brown', exampleSentence: 'Kasut itu berwarna perang.', engExample: 'Those shoes are brown.', category: 'Warna'),
+      VocabItem(bmWord: 'Kelabu', engMeaning: 'Grey', exampleSentence: 'Langit kelabu menandakan hujan.', engExample: 'A grey sky indicates rain.', category: 'Warna'),
+    ],
+  ),
+  VocabCategory(
+    name: 'Buah-buahan',
+    emoji: '🍉',
+    engName: 'Fruits',
+    icon: Icons.eco_rounded,
+    color: const Color(0xFF66BB6A),
+    items: const [
+      VocabItem(bmWord: 'Epal', engMeaning: 'Apple', exampleSentence: 'Epal ini sangat rangup.', engExample: 'This apple is very crunchy.', category: 'Buah-buahan'),
+      VocabItem(bmWord: 'Pisang', engMeaning: 'Banana', exampleSentence: 'Monyet suka makan pisang.', engExample: 'Monkeys like to eat bananas.', category: 'Buah-buahan'),
+      VocabItem(bmWord: 'Oren', engMeaning: 'Orange', exampleSentence: 'Jus oren ini segar.', engExample: 'This orange juice is fresh.', category: 'Buah-buahan'),
+      VocabItem(bmWord: 'Tembikai', engMeaning: 'Watermelon', exampleSentence: 'Tembikai baik untuk musim panas.', engExample: 'Watermelon is good for summer.', category: 'Buah-buahan'),
+      VocabItem(bmWord: 'Mangga', engMeaning: 'Mango', exampleSentence: 'Mangga ini sangat manis.', engExample: 'This mango is very sweet.', category: 'Buah-buahan'),
+      VocabItem(bmWord: 'Nanas', engMeaning: 'Pineapple', exampleSentence: 'Nanas berwarna kuning.', engExample: 'Pineapples are yellow.', category: 'Buah-buahan'),
+      VocabItem(bmWord: 'Betik', engMeaning: 'Papaya', exampleSentence: 'Betik kaya dengan vitamin.', engExample: 'Papaya is rich in vitamins.', category: 'Buah-buahan'),
+      VocabItem(bmWord: 'Anggur', engMeaning: 'Grapes', exampleSentence: 'Anggur ini manis.', engExample: 'These grapes are sweet.', category: 'Buah-buahan'),
+      VocabItem(bmWord: 'Durian', engMeaning: 'Durian', exampleSentence: 'Raja buah ialah durian.', engExample: 'The king of fruits is the durian.', category: 'Buah-buahan'),
+      VocabItem(bmWord: 'Strawberi', engMeaning: 'Strawberry', exampleSentence: 'Kek ini ada strawberi.', engExample: 'This cake has strawberries.', category: 'Buah-buahan'),
+    ],
+  ),
+  VocabCategory(
+    name: 'Haiwan',
+    emoji: '🙉',
+    engName: 'Animals',
+    icon: Icons.pets_rounded,
+    color: const Color(0xFFFFA726),
+    items: const [
+      VocabItem(bmWord: 'Kucing', engMeaning: 'Cat', exampleSentence: 'Kucing itu sedang tidur.', engExample: 'The cat is sleeping.', category: 'Haiwan'),
+      VocabItem(bmWord: 'Anjing', engMeaning: 'Dog', exampleSentence: 'Anjing itu menyalak.', engExample: 'The dog is barking.', category: 'Haiwan'),
+      VocabItem(bmWord: 'Burung', engMeaning: 'Bird', exampleSentence: 'Burung terbang di langit.', engExample: 'Birds fly in the sky.', category: 'Haiwan'),
+      VocabItem(bmWord: 'Ikan', engMeaning: 'Fish', exampleSentence: 'Ikan berenang dalam air.', engExample: 'Fish swim in the water.', category: 'Haiwan'),
+      VocabItem(bmWord: 'Harimau', engMeaning: 'Tiger', exampleSentence: 'Harimau sangat garang.', engExample: 'Tigers are very fierce.', category: 'Haiwan'),
+      VocabItem(bmWord: 'Gajah', engMeaning: 'Elephant', exampleSentence: 'Gajah mempunyai belalai.', engExample: 'Elephants have trunks.', category: 'Haiwan'),
+      VocabItem(bmWord: 'Singa', engMeaning: 'Lion', exampleSentence: 'Singa ialah raja rimba.', engExample: 'The lion is the king of the jungle.', category: 'Haiwan'),
+      VocabItem(bmWord: 'Lembu', engMeaning: 'Cow', exampleSentence: 'Lembu makan rumput.', engExample: 'Cows eat grass.', category: 'Haiwan'),
+      VocabItem(bmWord: 'Kuda', engMeaning: 'Horse', exampleSentence: 'Kuda berlari dengan pantas.', engExample: 'Horses run fast.', category: 'Haiwan'),
+      VocabItem(bmWord: 'Monyet', engMeaning: 'Monkey', exampleSentence: 'Monyet memanjat pokok.', engExample: 'Monkeys climb trees.', category: 'Haiwan'),
     ],
   ),
 ];
@@ -318,18 +351,12 @@ class _InfoScreenState extends State<InfoScreen> {
                   Container(
                     width: 56,
                     height: 56,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          category.color,
-                          category.color.withValues(alpha: 0.7),
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
+                    child: Center(
+                      child: Text(
+                        category.emoji,
+                        style: const TextStyle(fontSize: 36),
                       ),
-                      borderRadius: BorderRadius.circular(14),
                     ),
-                    child: Icon(category.icon, color: Colors.white, size: 28),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
@@ -342,6 +369,13 @@ class _InfoScreenState extends State<InfoScreen> {
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
                             color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          category.engName,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Color(0xFFC8B89A),
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -419,44 +453,94 @@ class _InfoScreenState extends State<InfoScreen> {
     );
   }
 
-  void _openCategory(VocabCategory category) {
-    Navigator.of(context).push(
+
+  void _openCategory(VocabCategory category) async {
+    await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => _CategoryDetailPage(
+        builder: (context) => CategoryDetailPage(
           category: category,
-          favourites: _favourites,
-          learned: _learned,
-          onToggleFavourite: _toggleFavourite,
-          onToggleLearned: _toggleLearned,
         ),
       ),
     );
+    _loadPreferences(); // Refresh progress when returning
   }
+
 }
 
 // ─────────────────────────────────────────────────────
 //  Category Detail Page — Shows all 10 vocab cards
 // ─────────────────────────────────────────────────────
-class _CategoryDetailPage extends StatefulWidget {
-  final VocabCategory category;
-  final Set<String> favourites;
-  final Set<String> learned;
-  final Function(String) onToggleFavourite;
-  final Function(String) onToggleLearned;
 
-  const _CategoryDetailPage({
+class CategoryDetailPage extends StatefulWidget {
+  final VocabCategory category;
+
+  const CategoryDetailPage({
+    super.key,
     required this.category,
-    required this.favourites,
-    required this.learned,
-    required this.onToggleFavourite,
-    required this.onToggleLearned,
   });
 
   @override
-  State<_CategoryDetailPage> createState() => _CategoryDetailPageState();
+  State<CategoryDetailPage> createState() => _CategoryDetailPageState();
 }
 
-class _CategoryDetailPageState extends State<_CategoryDetailPage> {
+class _CategoryDetailPageState extends State<CategoryDetailPage> {
+  Set<String> _favourites = {};
+  Set<String> _learned = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPreferences();
+  }
+
+  Future<void> _loadPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    final uid = FirebaseService.currentUser?.uid ?? 'guest';
+    
+    setState(() {
+      _favourites = (prefs.getStringList('favourites_$uid') ?? []).toSet();
+      _learned = (prefs.getStringList('learned_$uid') ?? []).toSet();
+    });
+    
+    if (FirebaseService.currentUser != null) {
+      final words = await FirebaseService.getLearnedVocab(widget.category.name);
+      if (words.isNotEmpty) {
+        setState(() {
+          _learned.addAll(words);
+        });
+        await prefs.setStringList('learned_$uid', _learned.toList());
+      }
+    }
+  }
+
+  Future<void> _toggleFavourite(String bmWord) async {
+    setState(() {
+      if (_favourites.contains(bmWord)) {
+        _favourites.remove(bmWord);
+      } else {
+        _favourites.add(bmWord);
+      }
+    });
+    final prefs = await SharedPreferences.getInstance();
+    final uid = FirebaseService.currentUser?.uid ?? 'guest';
+    await prefs.setStringList('favourites_$uid', _favourites.toList());
+  }
+
+  Future<void> _toggleLearned(String bmWord) async {
+    setState(() {
+      if (_learned.contains(bmWord)) {
+        _learned.remove(bmWord);
+        FirebaseService.toggleVocabLearned(widget.category.name, bmWord, false);
+      } else {
+        _learned.add(bmWord);
+        FirebaseService.toggleVocabLearned(widget.category.name, bmWord, true);
+      }
+    });
+    final prefs = await SharedPreferences.getInstance();
+    final uid = FirebaseService.currentUser?.uid ?? 'guest';
+    await prefs.setStringList('learned_$uid', _learned.toList());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -474,16 +558,10 @@ class _CategoryDetailPageState extends State<_CategoryDetailPage> {
           final item = widget.category.items[index];
           return _VocabCard(
             item: item,
-            isFavourite: widget.favourites.contains(item.bmWord),
-            isLearned: widget.learned.contains(item.bmWord),
-            onToggleFavourite: () {
-              widget.onToggleFavourite(item.bmWord);
-              setState(() {}); // Refresh UI
-            },
-            onToggleLearned: () {
-              widget.onToggleLearned(item.bmWord);
-              setState(() {}); // Refresh UI
-            },
+            isFavourite: _favourites.contains(item.bmWord),
+            isLearned: _learned.contains(item.bmWord),
+            onToggleFavourite: () => _toggleFavourite(item.bmWord),
+            onToggleLearned: () => _toggleLearned(item.bmWord),
             accentColor: widget.category.color,
           );
         },
@@ -491,7 +569,6 @@ class _CategoryDetailPageState extends State<_CategoryDetailPage> {
     );
   }
 }
-
 // ─────────────────────────────────────────────────────
 //  VocabCard — Individual vocabulary item card
 // ─────────────────────────────────────────────────────
