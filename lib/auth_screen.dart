@@ -115,27 +115,10 @@ class _AuthScreenState extends State<AuthScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   // App Logo/Icon
-                  Container(
-                    width: 120,
+                  Image.asset(
+                    'assets/icon_transparent.png',
                     height: 120,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFF5C6BC0), Color(0xFF3949AB)],
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFF5C6BC0).withValues(alpha: 0.3),
-                          blurRadius: 20,
-                          spreadRadius: 5,
-                        ),
-                      ],
-                    ),
-                    child: const Icon(
-                      Icons.language_rounded,
-                      size: 64,
-                      color: Colors.white,
-                    ),
+                    fit: BoxFit.contain,
                   ),
                   const SizedBox(height: 20),
                   const Text(
