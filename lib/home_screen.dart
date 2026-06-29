@@ -5,7 +5,9 @@ import 'info_screen.dart';
 import 'dart:math';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final VoidCallback? onNavigateToLearn;
+
+  const HomeScreen({super.key, this.onNavigateToLearn});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -20,6 +22,17 @@ class _HomeScreenState extends State<HomeScreen> {
     final random = Random();
     final randomCategory = allCategories[random.nextInt(allCategories.length)];
     dailyWord = randomCategory.items[random.nextInt(randomCategory.items.length)];
+  }
+
+  void _navigateToCategory(VocabCategory category) {
+    if (widget.onNavigateToLearn != null) {
+      widget.onNavigateToLearn!();
+    }
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => CategoryDetailPage(category: category),
+      ),
+    );
   }
 
   @override
@@ -220,11 +233,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       GestureDetector(
                         onTap: () {
                           final category = allCategories.firstWhere((c) => c.name == 'Keluarga');
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => CategoryDetailPage(category: category),
-                            ),
-                          );
+                          _navigateToCategory(category);
                         },
                         child: Container(
                         padding: const EdgeInsets.all(14),
@@ -266,11 +275,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       GestureDetector(
                         onTap: () {
                           final category = allCategories.firstWhere((c) => c.name == 'Kenderaan');
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => CategoryDetailPage(category: category),
-                            ),
-                          );
+                          _navigateToCategory(category);
                         },
                         child: Container(
                         padding: const EdgeInsets.all(14),
@@ -313,11 +318,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       GestureDetector(
                         onTap: () {
                           final category = allCategories.firstWhere((c) => c.name == 'Nombor');
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => CategoryDetailPage(category: category),
-                            ),
-                          );
+                          _navigateToCategory(category);
                         },
                         child: Container(
                         padding: const EdgeInsets.all(14),
@@ -360,11 +361,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       GestureDetector(
                         onTap: () {
                           final category = allCategories.firstWhere((c) => c.name == 'Warna');
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => CategoryDetailPage(category: category),
-                            ),
-                          );
+                          _navigateToCategory(category);
                         },
                         child: Container(
                         padding: const EdgeInsets.all(14),
@@ -406,11 +403,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       GestureDetector(
                         onTap: () {
                           final category = allCategories.firstWhere((c) => c.name == 'Buah-buahan');
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => CategoryDetailPage(category: category),
-                            ),
-                          );
+                          _navigateToCategory(category);
                         },
                         child: Container(
                         padding: const EdgeInsets.all(14),
@@ -452,11 +445,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       GestureDetector(
                         onTap: () {
                           final category = allCategories.firstWhere((c) => c.name == 'Haiwan');
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => CategoryDetailPage(category: category),
-                            ),
-                          );
+                          _navigateToCategory(category);
                         },
                         child: Container(
                         padding: const EdgeInsets.all(14),
