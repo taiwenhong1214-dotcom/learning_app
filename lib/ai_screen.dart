@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'services/firebase_service.dart';
 
 // ─────────────────────────────────────────────────────
 //  AI Screen — Tab 1: Conversation · Tab 2: Quiz

@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -348,7 +347,7 @@ class _InfoScreenState extends State<InfoScreen> {
               ),
               child: Row(
                 children: [
-                  Container(
+                  SizedBox(
                     width: 56,
                     height: 56,
                     child: Center(
