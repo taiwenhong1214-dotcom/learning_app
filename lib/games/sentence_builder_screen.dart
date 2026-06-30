@@ -238,8 +238,8 @@ class _SentenceBuilderScreenState extends State<SentenceBuilderScreen> {
             ),
             
             // Build Area
-            Expanded(
-              child: Container(
+            Container(
+              width: double.infinity,
                 margin: const EdgeInsets.symmetric(horizontal: 24),
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
@@ -269,9 +269,24 @@ class _SentenceBuilderScreenState extends State<SentenceBuilderScreen> {
                   }),
                 ),
               ),
-            ),
             
-            const SizedBox(height: 24),
+            Expanded(
+              child: Center(
+                child: Builder(
+                  builder: (context) {
+                    final category = allCategories.firstWhere(
+                      (c) => c.name == currentVocab.category, 
+                      orElse: () => allCategories.first,
+                    );
+                    return Icon(
+                      category.icon,
+                      size: 140,
+                      color: Colors.white.withValues(alpha: 0.04),
+                    );
+                  }
+                ),
+              ),
+            ),
             
             // Word Bank
             Container(

@@ -197,9 +197,23 @@ class _WordScrambleScreenState extends State<WordScrambleScreen> {
                 ],
               ),
             ),
-            
-            const Spacer(),
-            
+            Expanded(
+              child: Center(
+                child: Builder(
+                  builder: (context) {
+                    final category = allCategories.firstWhere(
+                      (c) => c.name == currentVocab.category, 
+                      orElse: () => allCategories.first,
+                    );
+                    return Icon(
+                      category.icon,
+                      size: 140,
+                      color: Colors.white.withValues(alpha: 0.04),
+                    );
+                  }
+                ),
+              ),
+            ),
             // User Answer Slots
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
