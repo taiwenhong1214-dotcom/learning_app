@@ -8,6 +8,8 @@ import 'info_screen.dart';
 import 'ai_screen.dart';
 import 'quiz_screen.dart';
 import 'auth_screen.dart';
+import 'games/word_scramble_screen.dart';
+import 'games/sentence_builder_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -149,6 +151,94 @@ class _MainNavigationState extends State<MainNavigation> {
     ];
   }
 
+  void _showGameMenu(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return Container(
+          padding: const EdgeInsets.all(24),
+          decoration: const BoxDecoration(
+            color: Color(0xFF1C2333),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(24),
+              topRight: Radius.circular(24),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 40,
+                height: 5,
+                decoration: BoxDecoration(
+                  color: Colors.white24,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              const SizedBox(height: 24),
+              const Text(
+                'Mini Games',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 24),
+              ListTile(
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const WordScrambleScreen(),
+                    ),
+                  );
+                },
+                leading: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF5C6BC0).withOpacity(0.2),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.spellcheck_rounded, color: Color(0xFF5C6BC0)),
+                ),
+                title: const Text('Spelling Bee', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600)),
+                subtitle: const Text('Active word recall & spelling', style: TextStyle(color: Colors.white54)),
+                trailing: const Icon(Icons.chevron_right_rounded, color: Colors.white54),
+              ),
+              const SizedBox(height: 12),
+              ListTile(
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SentenceBuilderScreen(),
+                    ),
+                  );
+                },
+                leading: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.greenAccent.withOpacity(0.2),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.school_rounded, color: Colors.greenAccent),
+                ),
+                title: const Text('Sentence Builder', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600)),
+                subtitle: const Text('Learn grammar and context', style: TextStyle(color: Colors.white54)),
+                trailing: const Icon(Icons.chevron_right_rounded, color: Colors.white54),
+              ),
+              const SizedBox(height: 24),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -156,6 +246,13 @@ class _MainNavigationState extends State<MainNavigation> {
         index: _currentIndex,
         children: _screens,
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _showGameMenu(context),
+        backgroundColor: const Color(0xFFFFD54F),
+        elevation: 10,
+        child: const Icon(Icons.sports_esports_rounded, color: Color(0xFF161B22), size: 30),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           boxShadow: [
