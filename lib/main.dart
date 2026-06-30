@@ -139,7 +139,10 @@ class _MainNavigationState extends State<MainNavigation> {
   void initState() {
     super.initState();
     _screens = [
-      HomeScreen(onNavigateToLearn: () => setState(() => _currentIndex = 1)),
+      HomeScreen(
+        onNavigateToLearn: () => setState(() => _currentIndex = 1),
+        onNavigateToQuiz: () => setState(() => _currentIndex = 3),
+      ),
       const InfoScreen(),
       const AiScreen(),
       const QuizScreen(),
@@ -149,26 +152,9 @@ class _MainNavigationState extends State<MainNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
-        switchInCurve: Curves.easeOutCubic,
-        switchOutCurve: Curves.easeOutCubic,
-        transitionBuilder: (Widget child, Animation<double> animation) {
-          return FadeTransition(
-            opacity: animation,
-            child: SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(0, 0.02),
-                end: Offset.zero,
-              ).animate(animation),
-              child: child,
-            ),
-          );
-        },
-        child: Container(
-          key: ValueKey<int>(_currentIndex),
-          child: _screens[_currentIndex],
-        ),
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _screens,
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(

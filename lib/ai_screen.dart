@@ -90,16 +90,16 @@ class _ConversationTabState extends State<_ConversationTab> {
   ];
 
   static const String _systemPrompt =
-      'You are a Bahasa Malaysia tutor. The user is a beginner learning BM. '
-      'Reply in simple Bahasa Malaysia, gently correct any grammar mistakes, '
-      'and encourage them. Keep replies short.';
+      'You are a friendly Bahasa Malaysia tutor. The user is an English speaker who is a beginner learning BM. '
+      'When the user makes grammar mistakes, gently correct them using English so they understand the rules. '
+      'Provide examples and encouragement in simple BM. Keep your replies short and bilingual (mix of English and BM).';
 
   @override
   void initState() {
     super.initState();
     // Welcome message
     _messages.add(_ChatMessage(
-      text: 'Selamat datang! 👋 Saya tutor Bahasa Malaysia anda. Cuba tulis sesuatu dalam BM!',
+      text: 'Selamat datang! 👋 I am your Bahasa Malaysia tutor. Cuba tulis sesuatu dalam BM (Try writing something in BM)!',
       isUser: false,
     ));
   }
@@ -293,7 +293,7 @@ class _ConversationTabState extends State<_ConversationTab> {
                 ),
                 SizedBox(width: 8),
                 Text(
-                  'AI sedang menaip...',
+                  'AI is typing(menaip)...',
                   style: TextStyle(color: Color(0xFF8B949E), fontSize: 13),
                 ),
               ],
@@ -322,7 +322,7 @@ class _ConversationTabState extends State<_ConversationTab> {
                     controller: _msgController,
                     style: const TextStyle(color: Colors.white, fontSize: 15),
                     decoration: InputDecoration(
-                      hintText: 'Tulis mesej dalam BM...',
+                      hintText: 'Write a message in BM...',
                       hintStyle: const TextStyle(color: Color(0xFF8B949E)),
                       filled: true,
                       fillColor: const Color(0xFF1C2333),
@@ -461,10 +461,24 @@ class _QuizQuestion {
   _QuizQuestion({required this.question, required this.options, required this.answer});
 
   factory _QuizQuestion.fromJson(Map<String, dynamic> json) {
+    final String q = json['question'] ?? '';
+    final List<String> opts = List<String>.from(json['options'] ?? []);
+    int ansIndex = json['answer'] ?? 0;
+    
+    if (ansIndex < 0 || ansIndex >= opts.length) {
+      ansIndex = 0;
+    }
+    
+    if (opts.isNotEmpty) {
+      String correctOption = opts[ansIndex];
+      opts.shuffle();
+      ansIndex = opts.indexOf(correctOption);
+    }
+
     return _QuizQuestion(
-      question: json['question'] ?? '',
-      options: List<String>.from(json['options'] ?? []),
-      answer: json['answer'] ?? 0,
+      question: q,
+      options: opts,
+      answer: ansIndex,
     );
   }
 }

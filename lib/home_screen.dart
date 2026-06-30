@@ -6,8 +6,9 @@ import 'dart:math';
 
 class HomeScreen extends StatefulWidget {
   final VoidCallback? onNavigateToLearn;
+  final VoidCallback? onNavigateToQuiz;
 
-  const HomeScreen({super.key, this.onNavigateToLearn});
+  const HomeScreen({super.key, this.onNavigateToLearn, this.onNavigateToQuiz});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -118,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             SizedBox(height: 4),
                             Text(
-                              'Lingo BM',
+                              'LearnBM',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 28,
@@ -557,21 +558,24 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
 
                         //the start button
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 14,
-                            vertical: 8,
-                          ),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFC8B89A),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: const Text(
-                            'Start',
-                            style: TextStyle(
-                              color: Color(0xFF1B2A4A),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
+                        GestureDetector(
+                          onTap: widget.onNavigateToQuiz,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 14,
+                              vertical: 8,
+                            ),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFC8B89A),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: const Text(
+                              'Start',
+                              style: TextStyle(
+                                color: Color(0xFF1B2A4A),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         ),
